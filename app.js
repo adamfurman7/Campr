@@ -84,6 +84,7 @@ const scriptSrcUrls = [
 	'https://kit.fontawesome.com',
 	'https://cdnjs.cloudflare.com/',
 	'https://cdn.jsdelivr.net',
+	'https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js',
 ];
 const styleSrcUrls = [
 	'https://kit-free.fontawesome.com/',
@@ -92,6 +93,8 @@ const styleSrcUrls = [
 	'https://api.tiles.mapbox.com/',
 	'https://fonts.googleapies.com/',
 	'https://use.fontawesome.com/',
+	'https://cdn.jsdelivr.net',
+	'self',
 ];
 const connectSrcUrls = [
 	'https://api.mapbox.com/',
@@ -102,11 +105,12 @@ const connectSrcUrls = [
 const fontSrcUrls = [];
 app.use(
 	helmet.contentSecurityPolicy({
+		useDefaults: true,
 		directives: {
 			defaultSrc: [],
 			connectSrc: ["'self'", ...connectSrcUrls],
-			scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-			stylesSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+			'script-src': ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+			'style-src': ["'self'", "'unsafe-inline'", ...styleSrcUrls],
 			workerSrc: ["'self'", 'blob:'],
 			objectSrc: [],
 			imgSrc: [
@@ -115,8 +119,11 @@ app.use(
 				'data:',
 				`https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}`,
 				'https://images.unsplash.com',
+				'https://res.cloudinary.com/dzik3qdi6/image/upload/v1676563378/Campr/afwl2vzd72cushnbir17.jpg',
 			],
 			fontSrc: ["'self'", ...fontSrcUrls],
+			'script-src-attr': null,
+			// 'style-src': ["'self'", "'unsafe-inline'", ...styleSrcUrls],
 		},
 	})
 );
